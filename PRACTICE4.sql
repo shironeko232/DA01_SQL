@@ -15,7 +15,7 @@ SELECT *,
     END AS triangle
 FROM Triangle
 
-  -- EX 3 ( SAI )
+  -- EX 3
 SELECT 
     ROUND((
             COUNT(CASE WHEN call_category IS NULL OR call_category = 'n/a' THEN 1 END)

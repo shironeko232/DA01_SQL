@@ -73,5 +73,13 @@ WHERE replacement_cost BETWEEN 9.99 AND 19.99
 GROUP BY cost_range 
 ORDER BY cost_range
 -- BÀI 3
-
+SELECT a.title, a.length, c.name
+FROM film AS a
+JOIN film_category AS b ON a.film_id = b.film_id
+JOIN category AS c ON b.category_id = c.category_id
+WHERE c.name IN ('Drama', 'Sports')
+GROUP BY a.title, c.name, a.length
+ORDER BY a.length DESC
+LIMIT 1
+-- BÀI 4
 

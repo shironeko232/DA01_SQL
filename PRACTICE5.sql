@@ -58,9 +58,11 @@ GROUP BY pages.page_id
 ORDER BY pages.page_id
 
 ---
--- BÀI 1
+
+  -- BÀI 1
 SELECT DISTINCT MIN (replacement_cost) FROM film
--- BÀI 2
+
+  -- BÀI 2
 SELECT 
     CASE 
         WHEN replacement_cost BETWEEN 9.99 AND 19.99 THEN 'low' 
@@ -72,7 +74,8 @@ FROM film
 WHERE replacement_cost BETWEEN 9.99 AND 19.99
 GROUP BY cost_range 
 ORDER BY cost_range
--- BÀI 3
+
+  -- BÀI 3
 SELECT a.title, a.length, c.name
 FROM film AS a
 JOIN film_category AS b ON a.film_id = b.film_id
@@ -82,4 +85,14 @@ GROUP BY a.title, c.name, a.length
 ORDER BY a.length DESC
 LIMIT 1
 -- BÀI 4
+-- BÀI 5
+
+  -- BÀI 6
+SELECT COUNT(*)
+FROM address AS add
+LEFT JOIN customer AS cus
+ON cus.address_id = add.address_id
+WHERE cus.customer_id IS NULL
+-- BÀI 7
+-- BÀI 8
 

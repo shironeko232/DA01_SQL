@@ -86,6 +86,7 @@ ORDER BY a.length DESC
 LIMIT 1
 -- BÀI 4
 -- BÀI 5
+  => 2 bài này em đang mắc khúc cuối đưa ra số lượng của đề ạ :(((
 
   -- BÀI 6
 SELECT COUNT(*)
@@ -95,4 +96,4 @@ ON cus.address_id = add.address_id
 WHERE cus.customer_id IS NULL
 -- BÀI 7
 -- BÀI 8
-
+=> 2 bài này em không tìm được trường doanh thu trong bảng nào ạ :(((

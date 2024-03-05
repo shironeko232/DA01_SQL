@@ -84,9 +84,22 @@ WHERE c.name IN ('Drama', 'Sports')
 GROUP BY a.title, c.name, a.length
 ORDER BY a.length DESC
 LIMIT 1
--- BÀI 4
--- BÀI 5
-  => 2 bài này em đang mắc khúc cuối đưa ra số lượng của đề ạ :(((
+
+  -- BÀI 4
+SELECT name, COUNT(title)
+FROM film AS a 
+JOIN film_category AS b ON a.film_id = b.film_id
+JOIN category AS c ON b.category_id = c.category_id
+GROUP BY name
+ORDER BY COUNT(title) DESC
+
+  -- BÀI 5
+SELECT COUNT(title), first_name || ' ' || last_name
+FROM film AS a 
+JOIN film_actor AS b ON a.film_id = b.film_id
+JOIN actor AS c ON b.actor_id = c.actor_id
+GROUP BY first_name || ' ' || last_name
+ORDER BY COUNT(title) DESC
 
   -- BÀI 6
 SELECT COUNT(*)
@@ -94,6 +107,23 @@ FROM address AS add
 LEFT JOIN customer AS cus
 ON cus.address_id = add.address_id
 WHERE cus.customer_id IS NULL
--- BÀI 7
--- BÀI 8
-=> 2 bài này em không tìm được trường doanh thu trong bảng nào ạ :(((
+
+  -- BÀI 7
+SELECT ci.city, SUM(pay.amount)
+FROM city AS ci
+JOIN address AS ad ON ci.city_id = ad.city_id
+JOIN customer AS cus ON ad.address_id = cus.address_id
+JOIN payment AS pay ON cus.customer_id = pay.customer_id
+GROUP BY ci.city
+ORDER BY SUM(pay.amount) DESC
+
+  -- BÀI 8
+SELECT SUM(pay.amount), ci.city || ',' || ' ' || co.country AS Thanhpho
+FROM city AS ci
+JOIN address AS ad ON ci.city_id = ad.city_id
+JOIN customer AS cus ON ad.address_id = cus.address_id
+JOIN payment AS pay ON cus.customer_id = pay.customer_id
+JOIN country AS co ON ci.country_id = co.country_id
+GROUP BY  ci.city || ',' || ' ' || co.country
+ORDER BY SUM(pay.amount) DESC
+=> OUTPUT : 221.55	"Cape Coral, United States"

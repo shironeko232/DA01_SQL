@@ -13,6 +13,7 @@ WITH ds_trung_lap AS (
   HAVING COUNT(title) > 1 )
 SELECT COUNT(*)
 FROM ds_trung_lap;
+
   -- EX 2
 WITH bang_xep_hang AS (
 SELECT category, product, 
@@ -23,7 +24,6 @@ ORDER BY SUM(spend) DESC) AS xep_hang
 FROM product_spend
 WHERE EXTRACT (year FROM transaction_date) = 2022
 GROUP BY category, product)
-
 SELECT category, product, total_spend
 FROM bang_xep_hang
 WHERE xep_hang<=2

@@ -51,8 +51,10 @@ SELECT
   ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)
   ,2) AS rolling_avg_3d
 FROM tweets
--- EX 6
 
+  -- EX 6
+  em đang mắc ạ
+ 
   -- EX 7
 WITH bang_xep_hang AS (
 SELECT category, product, 
@@ -67,4 +69,22 @@ SELECT category, product, total_spend
 FROM bang_xep_hang
 WHERE xep_hang<=2
 ORDER BY category, xep_hang
--- EX 8
+
+  -- EX 8
+WITH artist_top10 AS (
+SELECT
+        a.artist_name,
+        COUNT(a.artist_name) AS appearance
+        FROM global_song_rank AS gsr
+        JOIN songs s ON gsr.song_id = s.song_id
+        JOIN artists a ON s.artist_id = a.artist_id
+    WHERE gsr.rank <= 10
+    GROUP BY a.artist_name),
+artist_ranking AS (SELECT
+artist_name, appearance,
+DENSE_RANK() OVER (ORDER BY appearance DESC) AS artist_rank
+FROM artist_top10 )
+SELECT artist_name, artist_rank
+FROM artist_ranking
+WHERE artist_rank <= 5
+ORDER BY artist_rank

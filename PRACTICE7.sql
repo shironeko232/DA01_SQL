@@ -14,8 +14,46 @@ FROM cte
 WITH cte AS (SELECT card_name,
 issued_amount,
 MAKE_DATE(issue_year, issue_month, 1) AS issue_date,
-MIN(MAKE_DATE(issue_year, issue_month, 1)) OVERạ
- 
+MIN(MAKE_DATE(issue_year, issue_month, 1)) OVER
+
+  -- EX 3
+WITH cte AS ( SELECT 
+user_id, 
+spend, 
+transaction_date, 
+ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY transaction_date) AS row_num 
+FROM transactions )
+SELECT user_id, spend, transaction_date
+FROM cte 
+WHERE row_num = 3
+  
+  -- EX 4
+WITH cte AS (SELECT user_id, transaction_date, product_id, 
+RANK() OVER (PARTITION BY user_id ORDER BY transaction_date DESC ) AS ranking 
+FROM user_transactions)
+SELECT transaction_date, user_id, 
+COUNT(product_id ) AS purchase_count
+FROM cte 
+WHERE ranking  = 1 
+GROUP BY transaction_date, user_id
+
+  -- EX 5
+SELECT    
+  user_id,    
+  tweet_date,   
+  ROUND(AVG(tweet_count) OVER (PARTITION BY user_id ORDER BY tweet_date     
+  ROWS BETWEEN 2 PRECEDING AND CURRENT ROW),2) AS rolling_avg_3d
+FROM tweets
+  
+  -- EX 6
+WITH cte AS (SELECT 
+transaction_id, merchant_id, credit_card_id, amount, 
+transaction_timestamp - LAG(transaction_timestamp) OVER(PARTITION BY merchant_id, credit_card_id, amount ORDER BY  transaction_timestamp ) AS  diff_time
+FROM transactions)
+SELECT COUNT(*) AS payment_count
+FROM  cte
+WHERE  diff_time <= '00:10:00'
+  
   -- EX 7
 WITH bang_xep_hang AS (
 SELECT category, product, 

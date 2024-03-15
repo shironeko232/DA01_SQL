@@ -30,6 +30,14 @@ CASE
     WHEN orderdate IS NULL THEN 'Blank' ELSE 'Not Blank'
 END
 FROM sales_dataset_rfm_prj;
+-- Hoặc
+SELECT * FROM sales_dataset_rfm_prj
+WHERE ordernumber IS NULL 
+	OR quantityordered IS NULL 
+	OR priceeach IS NULL 
+	OR orderlinenumber IS NULL 
+	OR sales IS NULL 
+	OR orderdate IS NULL
 -- 3 thêm cột contactlastname, contactfirstname và thêm dữ liệu từ contactfullname
 ALTER TABLE sales_dataset_rfm_prj
 ADD COLUMN contactlastname VARCHAR(255) ,

@@ -46,10 +46,23 @@ JOIN bigquery-public-data.thelook_ecommerce.products AS b
 ON a.id = b.id
 where DATE(created_at) BETWEEN '2019-01-01' AND '2022-04-30'
 group by 1,2,3)
--- xếp hạng 
+
+  -- xếp hạng 
 SELECT * from 
 (SELECT month_year, product_id, product_name, sales, cost, profit,
 DENSE_RANK() OVER(PARTITION BY  month_year ORDER BY  profit DESC) AS rank_per_month 
 FROM bang4
 ORDER BY month_year) AS xephang
 WHERE rank_per_month <=5
+
+  --- Doanh thu
+SELECT  
+DATE(created_at),
+b.category AS product_categories,
+SUM (a.sale_price) AS revenue,
+FROM bigquery-public-data.thelook_ecommerce.order_items AS a 
+JOIN bigquery-public-data.thelook_ecommerce.products AS b
+ON a.id = b.id
+WHERE DATE(created_at) BETWEEN '2022-02-15' AND '2022-04-15'
+GROUP BY 1,2
+ORDER BY 1 DESC 

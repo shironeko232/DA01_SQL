@@ -96,3 +96,4 @@ JOIN segment_score b
 ON a.rfm_score=b.scores)
 SELECT * FROM customer_segment
 WHERE segment = 'Champions'
+-- Chạy lại kết quả

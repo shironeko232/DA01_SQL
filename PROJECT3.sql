@@ -1,4 +1,4 @@
-  -- 1) Doanh thu theo từng ProductLine, Year  và DealSize?
+-- 1) Doanh thu theo từng ProductLine, Year  và DealSize?
 SELECT 
   PRODUCTLINE, YEAR_ID, DEALSIZE,
   SUM(sales) AS REVENUE
@@ -58,7 +58,7 @@ SELECT
   year_id,
   productline,
   REVENUE,
-	ROW_NUMBER() OVER (ORDER BY year_id DESC) as rank
+	ROW_NUMBER() OVER (ORDER BY year_id DESC) AS rank
 FROM UK
 WHERE rank_by_revenue = 1
 LIMIT 1
@@ -79,14 +79,13 @@ customername,
 ntile(5) OVER(ORDER BY R DESC) AS R_SCORE,
 ntile(5) OVER(ORDER BY F DESC) AS F_SCORE,
 ntile(5) OVER(ORDER BY M DESC) AS M_SCORE
-from RFM),
+FROM RFM),
   -- Kết quả
-KETQUA as (
-SELECT 
+KETQUA AS (
+SELECT
 customername,
 CAST(R_SCORE AS VARCHAR) || CAST(F_SCORE AS VARCHAR) || CAST(M_SCORE AS VARCHAR) AS RFM_SCORE
-FROM RFM_SCORE)
-,
+FROM RFM_SCORE),
 customer_segment AS (
 SELECT 
 a.customername,
@@ -97,3 +96,4 @@ ON a.rfm_score=b.scores)
 SELECT * FROM customer_segment
 WHERE segment = 'Champions'
 -- Chạy lại kết quả
+SELECT * FROM segment_score

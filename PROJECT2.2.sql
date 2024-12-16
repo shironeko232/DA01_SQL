@@ -66,6 +66,3 @@ SELECT chd,
 (100-ROUND(100.00* t4/t1,2))||'%' t4
 FROM customer_cohort
 
-
---- em vẫn là dựa vào phần solution, em đã hiểu cách là và nên làm như thế nào ạ, dù bài này sẽ giống phần solution nhưng vẫn mong anh/chị duyệt ạ, bài sau em sẽ cố gắng nhiều hơn nữa, em cảm ơn anh/chị ạ !
---- bài này em nộp muộn nhiều nhưng do em trùng lịch thi kết thúc học phần nên ph hoãn lại chút chút, giờ em làm đều hơn vào những buổi cuối ạ !
